@@ -203,11 +203,20 @@ cp .env.example .env
 | Source | Category |
 |--------|----------|
 | BBC World | World News |
-| BBC Tech | Technology |
 | Reuters | World News |
+| Al Jazeera | World News |
+| NPR News | World News |
+| The Guardian | World News |
+| BBC Tech | Technology |
 | TechCrunch | Technology |
 | Hacker News | Technology |
 | Ars Technica | Technology |
+| The Verge | Technology |
+| Wired | Technology |
+| Science Daily | Science |
+| NASA | Science |
+| CNBC | Business |
+| Bloomberg | Business |
 
 Add custom sources in `app/config.py`:
 

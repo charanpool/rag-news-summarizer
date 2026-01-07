@@ -28,39 +28,80 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Initialize theme state
+if "theme" not in st.session_state:
+    st.session_state.theme = "dark"
+
+# Theme configurations
+THEMES = {
+    "dark": {
+        "primary": "#6366f1",
+        "primary_dark": "#4f46e5",
+        "accent": "#f59e0b",
+        "bg": "#0f172a",
+        "bg_card": "#1e293b",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#94a3b8",
+        "border": "#334155",
+        "gradient_start": "#6366f1",
+        "gradient_end": "#a855f7",
+    },
+    "light": {
+        "primary": "#4f46e5",
+        "primary_dark": "#4338ca",
+        "accent": "#d97706",
+        "bg": "#f8fafc",
+        "bg_card": "#ffffff",
+        "text_primary": "#1e293b",
+        "text_secondary": "#64748b",
+        "border": "#e2e8f0",
+        "gradient_start": "#4f46e5",
+        "gradient_end": "#7c3aed",
+    }
+}
+
+# Get current theme
+current_theme = THEMES[st.session_state.theme]
+
 # Custom CSS for a modern, polished look
-st.markdown("""
+st.markdown(f"""
 <style>
     /* Import custom font */
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
     
     /* Root variables */
-    :root {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --accent: #f59e0b;
-        --bg-dark: #0f172a;
-        --bg-card: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-    }
+    :root {{
+        --primary: {current_theme["primary"]};
+        --primary-dark: {current_theme["primary_dark"]};
+        --accent: {current_theme["accent"]};
+        --bg-dark: {current_theme["bg"]};
+        --bg-card: {current_theme["bg_card"]};
+        --text-primary: {current_theme["text_primary"]};
+        --text-secondary: {current_theme["text_secondary"]};
+    }}
     
     /* Main container styling */
-    .main .block-container {
+    .main .block-container {{
         padding-top: 2rem;
         padding-bottom: 2rem;
         max-width: 1200px;
-    }
+    }}
+    
+    /* Theme-aware body background */
+    .stApp {{
+        background-color: {current_theme["bg"]};
+    }}
     
     /* Headers */
-    h1, h2, h3 {
+    h1, h2, h3 {{
         font-family: 'Space Grotesk', sans-serif !important;
         font-weight: 600 !important;
-    }
+        color: {current_theme["text_primary"]} !important;
+    }}
     
     /* Custom header */
-    .main-header {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+    .main-header {{
+        background: linear-gradient(135deg, {current_theme["gradient_start"]} 0%, #8b5cf6 50%, {current_theme["gradient_end"]} 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -69,125 +110,133 @@ st.markdown("""
         text-align: center;
         margin-bottom: 0.5rem;
         font-family: 'Space Grotesk', sans-serif;
-    }
+    }}
     
-    .sub-header {
+    .sub-header {{
         text-align: center;
-        color: #64748b;
+        color: {current_theme["text_secondary"]};
         font-size: 1.1rem;
         margin-bottom: 2rem;
-    }
+    }}
     
     /* Cards */
-    .stat-card {
-        background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+    .stat-card {{
+        background: linear-gradient(145deg, {current_theme["bg_card"]} 0%, {current_theme["border"]} 100%);
         border-radius: 12px;
         padding: 1.5rem;
-        border: 1px solid #334155;
+        border: 1px solid {current_theme["border"]};
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
+    }}
     
-    .stat-number {
+    .stat-number {{
         font-size: 2.5rem;
         font-weight: 700;
-        color: #6366f1;
+        color: {current_theme["primary"]};
         font-family: 'Space Grotesk', sans-serif;
-    }
+    }}
     
-    .stat-label {
-        color: #94a3b8;
+    .stat-label {{
+        color: {current_theme["text_secondary"]};
         font-size: 0.9rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-    }
+    }}
     
     /* Source cards */
-    .source-card {
-        background: #1e293b;
+    .source-card {{
+        background: {current_theme["bg_card"]};
         border-radius: 8px;
         padding: 1rem;
         margin: 0.5rem 0;
-        border-left: 3px solid #6366f1;
-    }
+        border-left: 3px solid {current_theme["primary"]};
+    }}
     
-    .source-title {
+    .source-title {{
         font-weight: 600;
-        color: #f1f5f9;
+        color: {current_theme["text_primary"]};
         margin-bottom: 0.25rem;
-    }
+    }}
     
-    .source-meta {
-        color: #64748b;
+    .source-meta {{
+        color: {current_theme["text_secondary"]};
         font-size: 0.85rem;
-    }
+    }}
     
     /* Status badges */
-    .status-badge {
+    .status-badge {{
         display: inline-block;
         padding: 0.25rem 0.75rem;
         border-radius: 9999px;
         font-size: 0.75rem;
         font-weight: 500;
-    }
+    }}
     
-    .status-success {
+    .status-success {{
         background: rgba(34, 197, 94, 0.2);
         color: #22c55e;
-    }
+    }}
     
-    .status-warning {
+    .status-warning {{
         background: rgba(245, 158, 11, 0.2);
         color: #f59e0b;
-    }
+    }}
     
-    .status-error {
+    .status-error {{
         background: rgba(239, 68, 68, 0.2);
         color: #ef4444;
-    }
+    }}
     
     /* Sidebar styling */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-    }
+    [data-testid="stSidebar"] {{
+        background: linear-gradient(180deg, {current_theme["bg"]} 0%, {current_theme["bg_card"]} 100%);
+    }}
     
-    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
-        color: #e2e8f0;
-    }
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {{
+        color: {current_theme["text_primary"]};
+    }}
     
     /* Button styling */
-    .stButton > button {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    .stButton > button {{
+        background: linear-gradient(135deg, {current_theme["primary"]} 0%, #8b5cf6 100%);
         color: white;
         border: none;
         border-radius: 8px;
         padding: 0.5rem 1.5rem;
         font-weight: 500;
         transition: all 0.3s ease;
-    }
+    }}
     
-    .stButton > button:hover {
+    .stButton > button:hover {{
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-    }
+    }}
     
     /* Text input styling */
-    .stTextInput > div > div > input {
-        background: #1e293b;
-        border: 1px solid #334155;
+    .stTextInput > div > div > input {{
+        background: {current_theme["bg_card"]};
+        border: 1px solid {current_theme["border"]};
         border-radius: 8px;
-        color: #f1f5f9;
-    }
+        color: {current_theme["text_primary"]};
+    }}
     
-    .stTextInput > div > div > input:focus {
-        border-color: #6366f1;
+    .stTextInput > div > div > input:focus {{
+        border-color: {current_theme["primary"]};
         box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-    }
+    }}
     
     /* Expander styling */
-    .streamlit-expanderHeader {
-        background: #1e293b;
+    .streamlit-expanderHeader {{
+        background: {current_theme["bg_card"]};
         border-radius: 8px;
-    }
+    }}
+    
+    /* Theme toggle button */
+    .theme-toggle {{
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -204,7 +253,15 @@ def render_header():
 def render_sidebar():
     """Render the sidebar with controls and status."""
     with st.sidebar:
-        st.markdown("## ⚙️ Controls")
+        # Theme toggle at the top
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.markdown("## ⚙️ Controls")
+        with col2:
+            theme_icon = "🌙" if st.session_state.theme == "light" else "☀️"
+            if st.button(theme_icon, key="theme_toggle", help="Toggle dark/light theme"):
+                st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
+                st.rerun()
         
         # System status
         st.markdown("### 📊 System Status")

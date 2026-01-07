@@ -78,7 +78,7 @@ jobs:
       - name: Verify imports
         run: |
           python -c "from app.config import settings; print('✅ Config loaded')"
-          python -c "from app.embeddings import get_embeddings; print('✅ Embeddings module loaded')"
+          python -c "from app.embeddings import get_embedding_model; print('✅ Embeddings module loaded')"
           python -c "from app.vector_store import get_collection_stats; print('✅ Vector store module loaded')"
           python -c "from app.news_fetcher import fetch_all_feeds; print('✅ News fetcher module loaded')"
           echo "✅ All imports successful!"

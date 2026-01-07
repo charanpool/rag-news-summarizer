@@ -1,5 +1,6 @@
 # 📰 RAG News Summarizer
 
+[![CI](https://github.com/charanpool/rag-news-summarizer/actions/workflows/ci.yml/badge.svg)](https://github.com/charanpool/rag-news-summarizer/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![LangChain](https://img.shields.io/badge/LangChain-0.3-green.svg)](https://langchain.com/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-purple.svg)](https://ollama.ai/)

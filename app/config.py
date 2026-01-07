@@ -32,12 +32,28 @@ class Settings(BaseSettings):
     
     # News sources (RSS feeds)
     RSS_FEEDS: dict = {
+        # World News
         "BBC World": "http://feeds.bbci.co.uk/news/world/rss.xml",
-        "BBC Tech": "http://feeds.bbci.co.uk/news/technology/rss.xml",
         "Reuters World": "https://feeds.reuters.com/Reuters/worldNews",
+        "Al Jazeera": "https://www.aljazeera.com/xml/rss/all.xml",
+        "NPR News": "https://feeds.npr.org/1001/rss.xml",
+        "The Guardian": "https://www.theguardian.com/world/rss",
+        
+        # Technology
+        "BBC Tech": "http://feeds.bbci.co.uk/news/technology/rss.xml",
         "TechCrunch": "https://techcrunch.com/feed/",
         "Hacker News": "https://hnrss.org/frontpage",
         "ArsTechnica": "https://feeds.arstechnica.com/arstechnica/index",
+        "The Verge": "https://www.theverge.com/rss/index.xml",
+        "Wired": "https://www.wired.com/feed/rss",
+        
+        # Science
+        "Science Daily": "https://www.sciencedaily.com/rss/all.xml",
+        "NASA": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+        
+        # Business
+        "CNBC": "https://www.cnbc.com/id/100003114/device/rss/rss.html",
+        "Bloomberg": "https://feeds.bloomberg.com/markets/news.rss",
     }
 
     class Config:
